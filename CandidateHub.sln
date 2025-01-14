@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandidateHub.Api", "CandidateHub.Api\CandidateHub.Api.csproj", "{3D201755-EFFA-4277-8A89-8A04F77AFC6E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandidateHub.Modules", "CandidateHub.Modules\CandidateHub.Modules.csproj", "{E94D1664-9A72-4355-B362-AB9D6739D2E6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandidateHub.Data", "CandidateHub.Data\CandidateHub.Data.csproj", "{D293DB22-1B7D-4E75-A142-27B3BBFDEF2D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3D201755-EFFA-4277-8A89-8A04F77AFC6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D201755-EFFA-4277-8A89-8A04F77AFC6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D201755-EFFA-4277-8A89-8A04F77AFC6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D201755-EFFA-4277-8A89-8A04F77AFC6E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E94D1664-9A72-4355-B362-AB9D6739D2E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E94D1664-9A72-4355-B362-AB9D6739D2E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E94D1664-9A72-4355-B362-AB9D6739D2E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E94D1664-9A72-4355-B362-AB9D6739D2E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D293DB22-1B7D-4E75-A142-27B3BBFDEF2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D293DB22-1B7D-4E75-A142-27B3BBFDEF2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D293DB22-1B7D-4E75-A142-27B3BBFDEF2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D293DB22-1B7D-4E75-A142-27B3BBFDEF2D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

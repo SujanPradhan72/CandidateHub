@@ -1,0 +1,19 @@
+# User-specific files
+.vs/
+.idea/
+.vscode/
+
+# Logs
+*.log
+[Ll]og/
+
+# Ignore bin and obj folders
+bin/
+obj/
+
+
+# VS for Mac
+.vscode/
+
+# Rider
+.idea/
