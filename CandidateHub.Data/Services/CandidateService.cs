@@ -8,11 +8,13 @@ public class CandidateService(ICandidateRepository candidateRepository): ICandid
 {
     public async Task<Candidate?> GetByEmailAsync(string email)
     {
+        //TODO implement caching check
         return await candidateRepository.GetByEmailAsync(email);
     }
 
     public async Task<Candidate?> UpsertAsync(Candidate candidate)
     {
+        //TODO implement caching check
         return await candidateRepository.UpsertCandidateAsync(candidate);
     }
 }

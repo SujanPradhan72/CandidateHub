@@ -5,7 +5,7 @@ namespace CandidateHub.Data;
 
 public class AppDbContext(DbContextOptions<AppDbContext> options, DbOption dbOption): DbContext(options)
 {
-    private readonly string _connectionString = dbOption.GetPostgresConnectionString();
+    private readonly string _connectionString = dbOption.GetSqlLiteConnectionString();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -17,7 +17,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options, DbOption dbOpt
         if (!optionsBuilder.IsConfigured)
         {
             optionsBuilder
-                .UseNpgsql(_connectionString)
+                .UseSqlite(_connectionString)
                 .UseSnakeCaseNamingConvention();
         }
     }
