@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandidateHub.Modules", "Can
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandidateHub.Data", "CandidateHub.Data\CandidateHub.Data.csproj", "{D293DB22-1B7D-4E75-A142-27B3BBFDEF2D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandidateHub.Tests", "CandidateHub.Tests\CandidateHub.Tests.csproj", "{04DDBB8E-9F8F-483B-934D-F04FE994B269}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{D293DB22-1B7D-4E75-A142-27B3BBFDEF2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D293DB22-1B7D-4E75-A142-27B3BBFDEF2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D293DB22-1B7D-4E75-A142-27B3BBFDEF2D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04DDBB8E-9F8F-483B-934D-F04FE994B269}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04DDBB8E-9F8F-483B-934D-F04FE994B269}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04DDBB8E-9F8F-483B-934D-F04FE994B269}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04DDBB8E-9F8F-483B-934D-F04FE994B269}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
