@@ -1,7 +1,10 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace CandidateHub.Modules.Entities;
 
 public class Candidate
 {
+    [Key]
     public required string Email { get; set; }
     public required string FirstName { get; set; }
     public required string LastName { get; set; }

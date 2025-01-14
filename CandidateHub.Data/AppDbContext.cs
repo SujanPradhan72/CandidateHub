@@ -24,5 +24,8 @@ public class AppDbContext(DbContextOptions<AppDbContext> options, DbOption dbOpt
                 .ConfigureWarnings(w => w.Ignore(CoreEventId.DetachedLazyLoadingWarning));
         }
     }
-
+    public void EnsureDatabaseCreated()
+    {
+        Database.EnsureCreated();
+    }
 }
