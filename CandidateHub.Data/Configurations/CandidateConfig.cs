@@ -9,6 +9,6 @@ public class CandidateConfig : IEntityTypeConfiguration<Candidate>
     public void Configure(EntityTypeBuilder<Candidate> builder)
     {
         builder.ToTable("candidates");
-        builder.HasKey("email");
+        builder.HasKey("Email");
     }
 }

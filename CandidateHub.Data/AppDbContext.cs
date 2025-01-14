@@ -1,6 +1,5 @@
 using CandidateHub.Data.Configurations;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace CandidateHub.Data;
 
@@ -19,9 +18,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options, DbOption dbOpt
         {
             optionsBuilder
                 .UseNpgsql(_connectionString)
-                .UseSnakeCaseNamingConvention()
-                .UseLazyLoadingProxies()
-                .ConfigureWarnings(w => w.Ignore(CoreEventId.DetachedLazyLoadingWarning));
+                .UseSnakeCaseNamingConvention();
         }
     }
     public void EnsureDatabaseCreated()
