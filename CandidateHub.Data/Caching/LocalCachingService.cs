@@ -14,7 +14,7 @@ public class LocalCachingService(IMemoryCache cache) : ICachingService
     {
         var options = new MemoryCacheEntryOptions()
         {
-            AbsoluteExpirationRelativeToNow = expiration
+            AbsoluteExpirationRelativeToNow = expiration ?? TimeSpan.FromDays(1)
         };
         cache.Set(key, data, options);
         return Task.CompletedTask;
