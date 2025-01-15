@@ -16,4 +16,9 @@
       <ProjectReference Include="..\CandidateHub.Modules\CandidateHub.Modules.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Remove="candidate-shm" />
+      <None Remove="candidate" />
+    </ItemGroup>
+
 </Project>

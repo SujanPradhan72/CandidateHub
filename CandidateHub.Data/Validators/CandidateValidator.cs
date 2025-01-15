@@ -9,7 +9,9 @@ public class CandidateValidator : AbstractValidator<CandidateRequest>
     {
         RuleFor(x => x.Email)
             .NotEmpty()
-            .WithMessage("Email is required");
+            .WithMessage("Email is required")
+            .EmailAddress()
+            .WithMessage("Invalid Email");
         
         RuleFor(x => x.FirstName)
             .NotEmpty()
@@ -22,5 +24,13 @@ public class CandidateValidator : AbstractValidator<CandidateRequest>
         RuleFor(x => x.Comments)
             .NotEmpty()
             .WithMessage("Comments is required");
+        
+        RuleFor(x => x.GithubProfileUrl)
+            .Must(url => string.IsNullOrWhiteSpace(url) || Uri.IsWellFormedUriString(url, UriKind.Absolute))
+            .WithMessage("Please enter a valid GithubProfileUrl");
+        
+        RuleFor(x => x.LinkedInProfileUrl)
+            .Must(url => string.IsNullOrWhiteSpace(url) || Uri.IsWellFormedUriString(url, UriKind.Absolute))
+            .WithMessage("Please enter a valid LinkedInProfileUrl");
     }
 }

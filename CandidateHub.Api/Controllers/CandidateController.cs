@@ -24,6 +24,11 @@ public class CandidateController(ICandidateService candidateService, IValidator<
     public async Task<IActionResult> Post(CandidateRequest candidate)
     {
         var validRequest = await validator.ValidateAsync(candidate);
+        if (!validRequest.IsValid)
+        {
+            validRequest.Errors.ToList().ForEach(error => ModelState.AddModelError("Errors", error.ErrorMessage));
+            return BadRequest(ModelState);
+        }
         var res = await candidateService.UpsertAsync(candidate);
         return Ok(res);
     }
