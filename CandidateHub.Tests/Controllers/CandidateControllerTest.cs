@@ -101,7 +101,7 @@ public class CandidateControllerTest
             Email = "new@example.com", FirstName = "Jane Doe", LastName = "Smith",
             Comments = "Looking forward to the interview",
             GithubProfileUrl = "https://github.com/jane-doe/CandidateHub",
-            LinkedInProfileUrl = "httpsasd"
+            LinkedInProfileUrl = "https"
         };
         var validationResult = new ValidationResult
         {
