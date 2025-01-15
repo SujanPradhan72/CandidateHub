@@ -3,6 +3,8 @@ using CandidateHub.Data.Repos;
 using CandidateHub.Data.Repos.IRepos;
 using CandidateHub.Data.Services;
 using CandidateHub.Data.Services.IServices;
+using CandidateHub.Data.Validators;
+using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CandidateHub.Data;
@@ -21,6 +23,12 @@ public static class ServiceRegistration
 
         services.AddScoped<ICachingService, LocalCachingService>();
         services.AddScoped<ICandidateService, CandidateService>();
+
+        #endregion
+        
+        #region validators
+
+        services.AddValidatorsFromAssemblyContaining<CandidateValidator>();
 
         #endregion
     }

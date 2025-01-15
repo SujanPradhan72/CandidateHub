@@ -1,9 +1,10 @@
-using CandidateHub.Modules.Entities;
+using CandidateHub.Modules.DTOs.Request;
+using CandidateHub.Modules.DTOs.Response;
 
 namespace CandidateHub.Data.Services.IServices;
 
 public interface ICandidateService
 {
-    Task<Candidate?> GetByEmailAsync(string email);
-    Task<Candidate?> UpsertAsync(Candidate candidate);
+    Task<CandidateResponse?> GetByEmailAsync(string email);
+    Task<CandidateResponse?> UpsertAsync(CandidateRequest candidate);
 }

@@ -1,13 +1,14 @@
 using CandidateHub.Data.Services.IServices;
 using CandidateHub.Modules.Constants;
-using CandidateHub.Modules.Entities;
+using CandidateHub.Modules.DTOs.Request;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CandidateHub.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class CandidateController(ICandidateService candidateService) : ControllerBase
+public class CandidateController(ICandidateService candidateService, IValidator<CandidateRequest> validator) : ControllerBase
 {
     [HttpGet("{email}")]
     public async Task<IActionResult> GetCandidate(string email)
@@ -20,8 +21,9 @@ public class CandidateController(ICandidateService candidateService) : Controlle
     }
 
     [HttpPost]
-    public async Task<IActionResult> Post(Candidate candidate)
+    public async Task<IActionResult> Post(CandidateRequest candidate)
     {
+        var validRequest = await validator.ValidateAsync(candidate);
         var res = await candidateService.UpsertAsync(candidate);
         return Ok(res);
     }

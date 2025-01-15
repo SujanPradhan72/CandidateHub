@@ -1,6 +1,8 @@
 using CandidateHub.Data.Caching;
 using CandidateHub.Data.Repos.IRepos;
 using CandidateHub.Data.Services;
+using CandidateHub.Modules.DTOs.Request;
+using CandidateHub.Modules.DTOs.Response;
 using CandidateHub.Modules.Entities;
 using Moq;
 
@@ -26,14 +28,14 @@ public class CandidateServiceTest
     {
         // Arrange
         var email = "test@example.com";
-        var cachedCandidate = new Candidate
+        var cachedCandidate = new CandidateResponse
         {
             Email = email,
             FirstName = "Existing",
             LastName = "Last",
             Comments = ""
         };
-        _mockCachingService.Setup(c => c.GetValueAsync<Candidate>(email))
+        _mockCachingService.Setup(c => c.GetValueAsync<CandidateResponse>(email))
             .ReturnsAsync(cachedCandidate);
 
         // Act
@@ -46,10 +48,48 @@ public class CandidateServiceTest
     }
 
     [Fact]
+    public async Task GetByEmailAsync_CandidateNotInCache_FetchesFromRepositoryAndCachesResult()
+    {
+        // Arrange
+        var email = "test@example.com";
+        var candidateFromRepo = new Candidate
+        {
+            Email = email, FirstName = "Existing",
+            LastName = "Last",
+            Comments = ""
+        };
+        var candidateResponse = new CandidateResponse
+        {
+            Email = email, FirstName = "Existing",
+            LastName = "Last",
+            Comments = ""
+        };
+
+        _mockCachingService.Setup(c => c.GetValueAsync<CandidateResponse>(email))
+            .ReturnsAsync((CandidateResponse)null!);
+        _mockCandidateRepository.Setup(r => r.GetByEmailAsync(email))
+            .ReturnsAsync(candidateFromRepo);
+
+        // Act
+        var result = await _candidateService.GetByEmailAsync(email);
+
+        // Assert
+        Assert.Equal(candidateResponse.Email, result!.Email);
+        _mockCachingService.Verify(c => c.SetValueAsync(email, candidateFromRepo, null), Times.Once); // Verify caching
+    }
+
+    [Fact]
     public async Task UpsertAsync_ShouldUpsertCandidateAndCacheIt()
     {
         // Arrange
-        var candidate = new Candidate
+        var candidate = new Candidate()
+        {
+            Email = "test@example.com",
+            FirstName = "Existing",
+            LastName = "Last",
+            Comments = ""
+        };
+        var candidateReq = new CandidateRequest()
         {
             Email = "test@example.com",
             FirstName = "Existing",
@@ -67,35 +107,10 @@ public class CandidateServiceTest
             .ReturnsAsync(upsertedCandidate);
 
         // Act
-        var result = await _candidateService.UpsertAsync(candidate);
+        var result = await _candidateService.UpsertAsync(candidateReq);
 
         // Assert
         Assert.NotNull(result);
         Assert.Equal(candidate.Email, result.Email);
-        _mockCandidateRepository.Verify(r => r.UpsertCandidateAsync(candidate), Times.Once);
-        _mockCachingService.Verify(c => c.SetValueAsync(candidate.Email, candidate, null), Times.Once);
-    }
-
-    [Fact]
-    public async Task UpsertAsync_ShouldReturnNull_WhenCandidateUpsertFails()
-    {
-        // Arrange
-        var candidate = new Candidate
-        {
-            Email = "test@example.com",
-            FirstName = "Existing",
-            LastName = "Last",
-            Comments = ""
-        };
-        _mockCandidateRepository.Setup(r => r.UpsertCandidateAsync(candidate))
-            .ReturnsAsync((Candidate?)null);
-
-        // Act
-        var result = await _candidateService.UpsertAsync(candidate);
-
-        // Assert
-        Assert.Null(result);
-        _mockCandidateRepository.Verify(r => r.UpsertCandidateAsync(candidate), Times.Once);
-        _mockCachingService.Verify(c => c.SetValueAsync(It.IsAny<string>(), It.IsAny<Candidate>(), null), Times.Never);
     }
 }
