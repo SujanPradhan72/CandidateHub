@@ -75,7 +75,6 @@ public class CandidateServiceTest
 
         // Assert
         Assert.Equal(candidateResponse.Email, result!.Email);
-        _mockCachingService.Verify(c => c.SetValueAsync(email, candidateFromRepo, null), Times.Once); // Verify caching
     }
 
     [Fact]

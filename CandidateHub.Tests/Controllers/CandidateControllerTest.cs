@@ -4,6 +4,7 @@ using CandidateHub.Modules.Constants;
 using CandidateHub.Modules.DTOs.Request;
 using CandidateHub.Modules.DTOs.Response;
 using FluentValidation;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 
@@ -65,15 +66,22 @@ public class CandidateControllerTest
         var candidate = new CandidateRequest
         {
             Email = "new@example.com", FirstName = "Jane Doe", LastName = "Smith",
-            Comments = "Looking forward to the interview"
+            Comments = "Looking forward to the interview",
+            GithubProfileUrl = "https://github.com/jane-doe/CandidateHub",
+            LinkedInProfileUrl = "https://github.com/jane-doe/CandidateHub"
         };
-        
+
         var candidateResponse = new CandidateResponse
         {
             Email = "new@example.com", FirstName = "Jane Doe", LastName = "Smith",
-            Comments = "Looking forward to the interview"
+            Comments = "Looking forward to the interview",
+            GithubProfileUrl = "https://github.com/jane-doe/CandidateHub",
+            LinkedInProfileUrl = "https://github.com/jane-doe/CandidateHub"
         };
         _mockCandidateService.Setup(service => service.UpsertAsync(candidate)).ReturnsAsync(candidateResponse);
+
+        _mockValidator.Setup(s => s.ValidateAsync(candidate, CancellationToken.None))
+            .ReturnsAsync(new ValidationResult());
 
         // Act
         var result = await _controller.Post(candidate);
@@ -82,5 +90,29 @@ public class CandidateControllerTest
         var actionResult = Assert.IsType<OkObjectResult>(result);
         var returnedCandidate = Assert.IsType<CandidateResponse>(actionResult.Value);
         Assert.Equal(candidate.Email, returnedCandidate.Email);
+    }
+
+    [Fact]
+    public async Task Post_InvalidRequest_ReturnsBadRequest()
+    {
+        // Arrange
+        var candidate = new CandidateRequest
+        {
+            Email = "new@example.com", FirstName = "Jane Doe", LastName = "Smith",
+            Comments = "Looking forward to the interview",
+            GithubProfileUrl = "https://github.com/jane-doe/CandidateHub",
+            LinkedInProfileUrl = "httpsasd"
+        };
+        var validationResult = new ValidationResult
+        {
+            Errors = { new ValidationFailure("Error", "Please enter a valid LinkedInProfileUrl") }
+        };
+        _mockValidator.Setup(v => v.ValidateAsync(candidate, CancellationToken.None)).ReturnsAsync(validationResult);
+
+        // Act
+        var result = await _controller.Post(candidate);
+
+        // Assert
+        Assert.IsType<BadRequestObjectResult>(result);
     }
 }
