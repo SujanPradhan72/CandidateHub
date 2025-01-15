@@ -1,3 +1,4 @@
+using CandidateHub.Data.Caching;
 using CandidateHub.Data.Repos;
 using CandidateHub.Data.Repos.IRepos;
 using CandidateHub.Data.Services;
@@ -18,6 +19,7 @@ public static class ServiceRegistration
 
         #region services
 
+        services.AddScoped<ICachingService, LocalCachingService>();
         services.AddScoped<ICandidateService, CandidateService>();
 
         #endregion

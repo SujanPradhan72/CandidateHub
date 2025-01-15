@@ -3,7 +3,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace CandidateHub.Data;
 
-public class DbOption(IConfiguration configuration)
+public class DbOption(IConfiguration configuration) : IDbOption
 {
     // private string Host { get; } = configuration.GetSection($"DbServer:Host").Value ??
     //                                throw new SystemException("Database server not specified");

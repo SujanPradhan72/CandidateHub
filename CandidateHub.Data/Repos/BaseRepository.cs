@@ -6,9 +6,8 @@ public class BaseRepository<T> where T : class
 {
     private readonly AppDbContext _context;
     readonly DbSet<T> _dbSet;
-    public IQueryable<T> Queryable => _dbSet.AsQueryable();
 
-    protected BaseRepository(AppDbContext context)
+    public BaseRepository(AppDbContext context)
     {
         _context = context;
         _dbSet = _context.Set<T>();
@@ -26,14 +25,7 @@ public class BaseRepository<T> where T : class
         return entity;
     }
 
-    public async Task<T> UpdateAsync(T entity)
-    {
-        _dbSet.Update(entity);
-        await _context.SaveChangesAsync();
-        return entity;
-    }
-
-    protected async Task<T> UpsertAsync(T entity, string id)
+    public async Task<T> UpsertAsync(T entity, string id)
     {
         var existingEntity = await _dbSet.FindAsync(id);
 

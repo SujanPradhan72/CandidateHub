@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CandidateHub.Data;
 
-public class AppDbContext(DbContextOptions<AppDbContext> options, DbOption dbOption): DbContext(options)
+public class AppDbContext(DbContextOptions<AppDbContext> options, IDbOption dbOption): DbContext(options)
 {
     private readonly string _connectionString = dbOption.GetSqlLiteConnectionString();
 
@@ -11,7 +11,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options, DbOption dbOpt
     {
         modelBuilder.ApplyConfiguration(new CandidateConfig());
     }
-    
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         if (!optionsBuilder.IsConfigured)
